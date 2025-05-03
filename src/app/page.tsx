@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import styles from "./page.module.css";
 
-// Define the Design interface
 interface Design {
   designId: string;
   nPage: number;
@@ -16,16 +15,24 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    console.log("Fetching designs...");
     fetch("/api/designs?albumId=123&limit=5")
-        .then(res => res.json())
+        .then(res => {
+          console.log("Fetch response:", res.status, res.statusText);
+          return res.json();
+        })
         .then((data: Design[] | { error: string }) => {
+          console.log("Fetch data:", data);
           if (Array.isArray(data)) {
             setDesigns(data);
           } else {
             setError(data.error || "Failed to fetch designs");
           }
         })
-        .catch(err => setError(err.message));
+        .catch(err => {
+          console.error("Fetch error:", err);
+          setError(err.message);
+        });
   }, []);
 
   return (
@@ -42,7 +49,7 @@ export default function Home() {
           <h1>Next.js DynamoDB Template</h1>
           {error ? (
               <p>Error: {error}</p>
-          ) : (
+          ) : designs.length > 0 ? (
               <ul>
                 {designs.map(design => (
                     <li key={`${design.designId}-${design.nPage}`}>
@@ -50,6 +57,8 @@ export default function Home() {
                     </li>
                 ))}
               </ul>
+          ) : (
+              <p>No designs found.</p>
           )}
           <div className={styles.ctas}>
             <a
