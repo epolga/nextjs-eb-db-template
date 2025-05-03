@@ -1,0 +1,20 @@
+branch-defaults:
+  main:
+    environment: template-env
+environment-defaults:
+  template-env:
+    branch: null
+    repository: null
+global:
+  application_name: template-app
+  default_ec2_keyname: null
+  default_platform: Node.js 20
+  default_region: us-east-1
+  include_git_submodules: true
+  instance_profile: null
+  instance_type: t2.micro
+  platform_name: null
+  platform_version: null
+  profile: null
+  sc: git
+  workspace_type: Application
