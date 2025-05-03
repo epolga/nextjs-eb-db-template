@@ -12,7 +12,8 @@ export async function GET(request: Request) {
     const albumId = searchParams.get("albumId");
     const limit = parseInt(searchParams.get("limit") || "10");
     const nPage = searchParams.get("nPage");
-
+    const paddedAlbumId = albumId?.padStart(4, "0");
+    const id = `ALB#${paddedAlbumId}`;
     if (!albumId) {
         return NextResponse.json({ error: "albumId is required" }, { status: 400 });
     }
@@ -27,7 +28,7 @@ export async function GET(request: Request) {
             TableName: process.env.DYNAMODB_TABLE_NAME!,
             KeyConditionExpression: "ID = :id",
             ExpressionAttributeValues: {
-                ":id": `ALB#${albumId}`,
+                ":id": `id`,
             },
             Limit: limit,
         };

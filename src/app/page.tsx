@@ -18,7 +18,7 @@ export default function Home() {
     console.log("Fetching designs...");
     fetch("/api/designs?albumId=15&limit=5")
         .then(res => {
-          console.log("Fetch response:", res.status, res.statusText);
+          console.log("Fetch response for albumId 15:", res.status, res.statusText);
           return res.json();
         })
         .then((data: Design[] | { error: string }) => {
