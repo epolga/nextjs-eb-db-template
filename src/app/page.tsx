@@ -16,7 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     console.log("Fetching designs...");
-    fetch("/api/designs?albumId=123&limit=5")
+    fetch("/api/designs?albumId=15&limit=5")
         .then(res => {
           console.log("Fetch response:", res.status, res.statusText);
           return res.json();
