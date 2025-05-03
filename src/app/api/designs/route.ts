@@ -28,7 +28,7 @@ export async function GET(request: Request) {
             TableName: process.env.DYNAMODB_TABLE_NAME!,
             KeyConditionExpression: "ID = :id",
             ExpressionAttributeValues: {
-                ":id": `id`,
+                ":id": id,
             },
             Limit: limit,
         };
